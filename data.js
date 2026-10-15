@@ -1,7 +1,21 @@
 // Your timeline. To add an achievement, copy one block, edit it, and save.
 // type: "work" | "project" | "win" | "lead" | "cert" | "edu"
-// date: "YYYY-MM" (used for sorting and the ruler). end: optional "YYYY-MM" or "now".
+// date: "YYYY-MM" (used for sorting). end: optional "YYYY-MM" or "now". when: optional text shown instead of the date.
 window.TIMELINE = [
+  {
+    date: "2026-10", when: "2026", type: "win",
+    title: "Hackathon winner",
+    org: "Atria Institute of Technology, Bengaluru",
+    text: "Won the hackathon at Atria Institute of Technology."
+  },
+  {
+    date: "2026-10", type: "project",
+    title: "Arogya Pharma Sentinel",
+    tagline: "AI agent for pharmacy recalls and cold-chain safety", category: "Healthcare AI",
+    text: "An AI agent for a pharma distributor that tracks stock by batch and expiry, traces any batch from manufacturer to customer, links cold-room temperature excursions to the batches stored there, and recommends what to block, return, move or reorder. Every action waits for a pharmacist's approval. Quantities are computed in SQL and Python; the LLM explains and drafts, and its output is validated against the database. Covered by 57 acceptance tests.",
+    tags: ["FastAPI", "PostgreSQL", "React", "LLM agents", "Python"],
+    link: "https://github.com/Nithish-217/arogya-pharma-sentinel", linkText: "View on GitHub"
+  },
   {
     date: "2026-05", type: "cert",
     title: "Data Structures & Algorithms",
@@ -51,7 +65,7 @@ window.TIMELINE = [
   },
   {
     date: "2025-05", end: "2025-09", type: "work",
-    title: "Software Development Engineer Intern (paid)",
+    title: "Software Development Engineer Intern",
     org: "CMTI – Central Manufacturing Technology Institute, Bengaluru",
     text: "Designed and deployed the Gauge Inventory System for the Metrology department: FastAPI + PostgreSQL REST APIs managing 1,000+ precision gauges, cutting manual tracking by 40% and used daily by 15+ staff. Received a letter of recommendation.",
     tags: ["FastAPI", "PostgreSQL", "React", "OOP"]
