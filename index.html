@@ -27,6 +27,8 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth; scroll-padding-top:72px}
+html.lenis, html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto !important}
 body{margin:0; background:var(--bg); color:var(--ink); font-family:"Geist",system-ui,sans-serif; font-size:17px; line-height:1.6; overflow-x:hidden}
 a{color:inherit}
 img{max-width:100%}
@@ -67,7 +69,7 @@ img{max-width:100%}
 .hero{position:relative; min-height:100vh; min-height:100svh; display:grid; grid-template-columns:1fr minmax(260px,420px) 1fr; align-items:center; gap:24px; padding:96px 64px 40px; max-width:1400px; margin:0 auto}
 .hero .left, .hero .right{min-width:0}
 .hello{margin:0; font-size:clamp(20px,2vw,28px); font-weight:500}
-.name{margin:4px 0 0; font-size:clamp(44px,5.4vw,84px); font-weight:800; line-height:.95; letter-spacing:-.01em; text-transform:uppercase;
+.name{margin:4px 0 0; white-space:nowrap; font-size:clamp(40px,4.3vw,84px); font-weight:800; line-height:.95; letter-spacing:-.01em; text-transform:uppercase;
   background:linear-gradient(180deg,#fff 20%, #9C97B4); -webkit-background-clip:text; background-clip:text; color:transparent}
 .hero .right .an{margin:0; font-size:clamp(20px,2vw,28px); font-weight:500}
 .role{margin:4px 0 0; font-size:clamp(34px,4.2vw,64px); font-weight:800; line-height:1; text-transform:uppercase; letter-spacing:-.01em; min-height:2em}
@@ -93,12 +95,36 @@ img{max-width:100%}
 @media (prefers-reduced-motion: no-preference){
   .hero .left{animation:from-left 1s cubic-bezier(.2,.7,.2,1) .2s both}
   .hero .right{animation:from-right 1s cubic-bezier(.2,.7,.2,1) .35s both}
-  .orb{animation:fade 1.4s ease both}
+  .orb{animation:orb-in 1.4s ease both}
+  @keyframes orb-in{from{opacity:0}}
   @keyframes from-left{from{opacity:0; transform:translateX(-40px); filter:blur(8px)}}
   @keyframes from-right{from{opacity:0; transform:translateX(40px); filter:blur(8px)}}
   @keyframes fade{from{opacity:0; transform:scale(.96)}}
   .role .swap{transition:opacity .45s, filter .45s, transform .45s}
   .role .swap.out{opacity:0; filter:blur(8px); transform:translateY(10px)}
+}
+
+/* ---------- landing circles ---------- */
+.landing-circle{position:absolute; border-radius:50%; pointer-events:none; z-index:-1}
+.landing-circle.c1{width:min(720px,70vw); aspect-ratio:1; left:50%; top:46%; transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(139,92,246,.32), rgba(139,92,246,.08) 45%, transparent 68%)}
+.landing-circle.c2{width:min(520px,52vw); aspect-ratio:1; left:50%; top:46%; transform:translate(-50%,-50%);
+  border:1px solid rgba(196,181,253,.14); box-shadow:inset 0 0 80px rgba(139,92,246,.12)}
+
+/* ---------- custom cursor ---------- */
+.cursor{position:fixed; left:0; top:0; z-index:100; width:28px; height:28px; margin:-14px 0 0 -14px; border-radius:50%;
+  background:#E4DCFF; mix-blend-mode:difference; pointer-events:none; opacity:0; transition:width .25s, height .25s, margin .25s, opacity .3s}
+.cursor.on{opacity:1}
+.cursor.big{width:64px; height:64px; margin:-32px 0 0 -32px}
+@media (pointer:coarse){ .cursor{display:none} }
+
+/* ---------- character stays on screen (desktop, motion allowed) ---------- */
+@media (min-width:1001px){
+  .fx .hero .left{grid-column:1}
+  .fx .hero .right{grid-column:3}
+  .fx .orb{--w:min(420px,31vw); position:fixed; z-index:6; left:50%; top:50%; width:var(--w); max-width:none;
+    margin-left:calc(var(--w) / -2); margin-top:calc(var(--w) * 1.15 / -2 + 30px)}
+  .fx .about p.lead{max-width:24ch}
 }
 
 /* ---------- shared ---------- */
@@ -137,8 +163,9 @@ section{padding:140px 0 0}
 .filters button{font:inherit; font-size:14px; font-weight:500; cursor:pointer; color:var(--muted); background:transparent; border:1px solid var(--line); border-radius:999px; padding:6px 16px}
 .filters button:hover{color:var(--ink)}
 .filters button[aria-pressed="true"]{color:#0A0910; background:var(--accent); border-color:var(--accent)}
-.career{position:relative; max-width:940px; margin:0 auto}
-.career::before{content:""; position:absolute; left:50%; top:0; bottom:0; width:2px; transform:translateX(-50%);
+.career-box{position:relative; max-width:940px; margin:0 auto}
+.career{position:relative}
+.career-line{position:absolute; left:50%; top:0; bottom:0; width:2px; margin-left:-1px; transform-origin:top;
   background:linear-gradient(to bottom, transparent, var(--accent-2) 6%, var(--accent-2) 94%, transparent); box-shadow:0 0 18px var(--glow)}
 .job{position:relative; display:grid; grid-template-columns:1fr 1fr; gap:80px; padding:30px 0 34px}
 .job::before{content:""; position:absolute; left:50%; top:40px; width:12px; height:12px; border-radius:50%; transform:translateX(-50%); background:var(--accent); box-shadow:0 0 0 5px var(--bg), 0 0 18px var(--accent)}
@@ -179,15 +206,23 @@ section{padding:140px 0 0}
   background-image:linear-gradient(rgba(255,255,255,.35) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.35) 1px, transparent 1px);
   background-size:28px 28px; -webkit-mask:radial-gradient(circle at 50% 60%, transparent 25%, #000 75%); mask:radial-gradient(circle at 50% 60%, transparent 25%, #000 75%)}
 .cover .ct{position:absolute; top:7%; left:0; right:0; text-align:center; padding:0 12px}
-.cover .ct b{display:block; font-size:clamp(18px,2.4vw,32px); font-weight:800; line-height:1.05; text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.cover .ct b{display:block; font-size:clamp(16px,1.9vw,28px); font-weight:800; line-height:1.05; text-shadow:0 2px 12px rgba(0,0,0,.5)}
 .cover .ct small{display:block; margin-top:4px; font-size:clamp(11px,1.1vw,14px); opacity:.85}
-.cover .glyph{position:absolute; left:50%; top:63%; width:24%; transform:translate(-50%,-50%); filter:drop-shadow(0 0 22px var(--hue))}
+.cover .glyph{position:absolute; left:50%; top:66%; width:20%; transform:translate(-50%,-50%); filter:drop-shadow(0 0 22px var(--hue))}
 .cover .glyph svg{display:block; width:100%; height:auto; stroke:#fff; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
 .cover .chip{position:absolute; font-size:clamp(9px,1vw,12.5px); font-weight:600; padding:3px 10px; border-radius:999px; background:#fff; color:#0D1B2E; white-space:nowrap}
-.cover .chip:nth-of-type(1){left:9%; top:44%}
-.cover .chip:nth-of-type(2){right:9%; top:44%}
+.cover .chip:nth-of-type(1){left:7%; top:52%}
+.cover .chip:nth-of-type(2){right:7%; top:52%}
 .cover .chip:nth-of-type(3){left:13%; bottom:12%}
 .cover .chip:nth-of-type(4){right:13%; bottom:12%}
+
+/* horizontal work track (desktop, motion allowed) */
+@media (min-width:1001px){
+  .fx #work{overflow:hidden; padding-bottom:40px}
+  .fx #projects{display:flex; gap:72px; width:max-content; will-change:transform}
+  .fx #projects .project{width:min(1060px, 78vw); flex:none; border-bottom:0; border-right:1px solid var(--line); padding-right:72px}
+  .fx #projects .project:last-child{border-right:0}
+}
 
 /* ---------- tech stack ---------- */
 .stack{text-align:center; position:relative; padding-bottom:40px}
@@ -243,7 +278,7 @@ footer em{font-style:normal; color:var(--accent)}
   .rail.left{display:none}
   .rail.right{right:8px; font-size:11px}
   section{padding-top:110px}
-  .career::before{left:6px; transform:none}
+  .career-line{left:6px; margin-left:0}
   .job{grid-template-columns:1fr; gap:10px; padding:22px 0 26px 34px}
   .job::before{left:0; transform:none; top:30px}
   .job .what{text-align:left}
@@ -255,6 +290,7 @@ footer em{font-style:normal; color:var(--accent)}
 </head>
 <body>
 <div class="ambient" aria-hidden="true"><i></i><i></i></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
 
 <nav class="nav" aria-label="Main">
   <div class="wrap">
@@ -278,18 +314,20 @@ footer em{font-style:normal; color:var(--accent)}
 
 <main id="top">
   <header class="hero">
+    <div class="landing-circle c1" aria-hidden="true"></div>
+    <div class="landing-circle c2" aria-hidden="true"></div>
     <div class="left">
       <p class="hello">Hello! I'm</p>
       <h1 class="name">Nithish K</h1>
     </div>
     <div class="orb">
-      <svg class="dev" id="dev" viewBox="0 0 400 460" role="img" aria-label="Cartoon of Nithish that looks toward your cursor">
+      <svg class="dev" id="dev" viewBox="0 0 400 460" role="img" aria-label="Cartoon developer character that looks toward your cursor">
         <defs>
           <radialGradient id="g-skin" cx="46%" cy="36%" r="70%">
-            <stop offset="0" stop-color="#E6B48C"/>
-            <stop offset=".45" stop-color="#C98D62"/>
-            <stop offset=".8" stop-color="#A96E46"/>
-            <stop offset="1" stop-color="#874F2F"/>
+            <stop offset="0" stop-color="#EDBE98"/>
+            <stop offset=".45" stop-color="#D49A70"/>
+            <stop offset=".8" stop-color="#B57950"/>
+            <stop offset="1" stop-color="#93593A"/>
           </radialGradient>
           <linearGradient id="g-neck" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#7E4628"/>
@@ -314,7 +352,6 @@ footer em{font-style:normal; color:var(--accent)}
             <stop offset=".55" stop-color="#241C42"/>
             <stop offset="1" stop-color="#140F28"/>
           </linearGradient>
-          <linearGradient id="g-shirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBFAFE"/><stop offset=".6" stop-color="#E4DFEF"/><stop offset="1" stop-color="#BDB5D2"/></linearGradient>
           <linearGradient id="g-tee" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#F4F1FA"/>
             <stop offset="1" stop-color="#C9C2DC"/>
@@ -335,7 +372,7 @@ footer em{font-style:normal; color:var(--accent)}
           </radialGradient>
           <clipPath id="c-eye-l"><path d="M148 198 C156 187 178 186 188 197 C179 205 157 207 148 198 Z"/></clipPath>
           <clipPath id="c-eye-r"><path d="M212 197 C222 186 244 187 252 198 C243 207 221 205 212 197 Z"/></clipPath>
-          <clipPath id="c-face"><path d="M200 86 C256 86 288 126 288 182 C290 230 280 264 262 286 C246 306 224 318 200 320 C176 318 154 306 138 286 C120 264 110 230 112 182 C114 126 144 86 200 86 Z"/></clipPath>
+          <clipPath id="c-face"><path d="M200 84 C254 84 284 122 286 176 C288 220 280 254 260 280 C244 300 224 314 200 316 C176 314 156 300 140 280 C120 254 112 220 114 176 C116 122 146 84 200 84 Z"/></clipPath>
           <filter id="f-blur2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter>
           <filter id="f-blur4" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
           <filter id="f-blur7" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
@@ -350,19 +387,22 @@ footer em{font-style:normal; color:var(--accent)}
 
         <!-- body -->
         <g id="body">
-          <!-- white shirt -->
-          <path d="M28 460 C34 384 92 348 156 338 L244 338 C308 348 366 384 372 460 Z" fill="url(#g-shirt)"/>
-          <path d="M60 460 C66 414 84 388 108 372" stroke="#B9B1CF" stroke-width="3" fill="none" opacity=".6" stroke-linecap="round"/>
-          <path d="M340 460 C334 414 316 388 292 372" stroke="#A39BBC" stroke-width="3" fill="none" opacity=".7" stroke-linecap="round"/>
-          <path d="M200 372 V460" stroke="#C5BED8" stroke-width="2.5"/>
-          <circle cx="206" cy="398" r="3.4" fill="#8E86A6"/>
-          <circle cx="206" cy="440" r="3.4" fill="#8E86A6"/>
+          <!-- jacket -->
+          <path d="M28 460 C34 384 92 346 156 336 L244 336 C308 346 366 384 372 460 Z" fill="url(#g-jacket)"/>
+          <!-- tee -->
+          <path d="M156 336 C168 372 232 372 244 336 L262 344 C250 400 228 460 228 460 H172 C172 460 150 400 138 344 Z" fill="url(#g-tee)"/>
+          <path d="M162 338 C174 362 226 362 238 338" stroke="#B4AACB" stroke-width="3" fill="none"/>
+          <!-- lapels / jacket opening -->
+          <path d="M138 344 C150 396 166 432 172 460 H120 C112 420 100 384 92 362 Z" fill="#2E2452"/>
+          <path d="M262 344 C250 396 234 432 228 460 H280 C288 420 300 384 308 362 Z" fill="#2E2452"/>
+          <path d="M138 344 C150 396 166 432 172 460" stroke="#6D58B8" stroke-width="2" fill="none" opacity=".7"/>
+          <path d="M262 344 C250 396 234 432 228 460" stroke="#6D58B8" stroke-width="2" fill="none" opacity=".7"/>
+          <path d="M60 460 C66 414 84 388 108 372" stroke="#5B4A9A" stroke-width="3" fill="none" opacity=".45" stroke-linecap="round"/>
+          <path d="M340 460 C334 414 316 388 292 372" stroke="#0C0918" stroke-width="3" fill="none" opacity=".6" stroke-linecap="round"/>
           <!-- neck -->
           <path d="M168 270 C168 296 166 318 160 340 C180 356 220 356 240 340 C234 318 232 296 232 270 Z" fill="url(#g-neck)"/>
           <path d="M200 312 C196 320 196 328 200 334" stroke="#8C5434" stroke-width="3" fill="none" opacity=".5" stroke-linecap="round"/>
           <ellipse cx="200" cy="296" rx="44" ry="20" fill="#4A2412" opacity=".5" filter="url(#f-blur7)"/>
-          <path d="M160 330 L200 372 L180 388 L146 344 Z" fill="#FFFFFF" stroke="#C5BED8" stroke-width="2" stroke-linejoin="round"/>
-          <path d="M240 330 L200 372 L220 388 L254 344 Z" fill="#FFFFFF" stroke="#C5BED8" stroke-width="2" stroke-linejoin="round"/>
         </g>
 
         <!-- head (moved by script) -->
@@ -378,7 +418,7 @@ footer em{font-style:normal; color:var(--accent)}
           </g>
 
           <!-- face base -->
-          <path d="M200 86 C256 86 288 126 288 182 C290 230 280 264 262 286 C246 306 224 318 200 320 C176 318 154 306 138 286 C120 264 110 230 112 182 C114 126 144 86 200 86 Z" fill="url(#g-skin)"/>
+          <path d="M200 84 C254 84 284 122 286 176 C288 220 280 254 260 280 C244 300 224 314 200 316 C176 314 156 300 140 280 C120 254 112 220 114 176 C116 122 146 84 200 84 Z" fill="url(#g-skin)"/>
 
           <g clip-path="url(#c-face)">
             <!-- faded hair on the sides of the head -->
@@ -392,8 +432,9 @@ footer em{font-style:normal; color:var(--accent)}
             <!-- jaw shadow -->
             <path d="M120 236 C130 276 160 306 200 312 C240 306 270 276 280 236 L290 330 H110 Z" fill="#6E3820" opacity=".28" filter="url(#f-blur4)"/>
             <!-- stubble: jaw, chin, moustache -->
-            <path d="M126 228 C134 270 164 304 200 308 C236 304 266 270 274 228 C264 262 238 286 214 290 C208 280 192 280 186 290 C162 286 136 262 126 228 Z" fill="#2B1C14" opacity=".42" filter="url(#f-blur2)"/>
-            <path d="M126 228 C134 270 164 304 200 308 C236 304 266 270 274 228 C264 262 238 286 214 290 C208 280 192 280 186 290 C162 286 136 262 126 228 Z" fill="#000" filter="url(#f-stubble)" opacity=".7"/>
+            <path d="M126 228 C134 270 164 304 200 308 C236 304 266 270 274 228 C264 262 238 286 214 290 C208 280 192 280 186 290 C162 286 136 262 126 228 Z" fill="#2B1C14" opacity=".35" filter="url(#f-blur2)"/>
+            <path d="M126 228 C134 270 164 304 200 308 C236 304 266 270 274 228 C264 262 238 286 214 290 C208 280 192 280 186 290 C162 286 136 262 126 228 Z" fill="#000" filter="url(#f-stubble)" opacity=".45"/>
+            <path d="M178 260 C188 254 196 255 200 258 C204 255 212 254 222 260 C214 262 206 262 200 263 C194 262 186 262 178 260 Z" fill="#2B1C14" opacity=".55" filter="url(#f-blur2)"/>
           </g>
 
           <g id="l-face">
@@ -448,10 +489,10 @@ footer em{font-style:normal; color:var(--accent)}
             <path d="M193 200 C192 218 188 232 186 240" stroke="#8B4F2E" stroke-width="5" fill="none" opacity=".3" filter="url(#f-blur2)"/>
             <path d="M203 196 C205 214 207 228 208 236" stroke="#F6D3B6" stroke-width="4" fill="none" opacity=".5" filter="url(#f-blur2)"/>
             <ellipse cx="201" cy="240" rx="11" ry="8" fill="#F2C7A6" opacity=".55" filter="url(#f-blur2)"/>
-            <path d="M187 236 C183 242 185 248 191 249" stroke="#6A3418" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>
-            <path d="M213 236 C217 242 215 248 209 249" stroke="#6A3418" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>
-            <ellipse cx="193" cy="248" rx="3.6" ry="2" fill="#3E1E0E" opacity=".75" filter="url(#f-blur2)"/>
-            <ellipse cx="207" cy="248" rx="3.6" ry="2" fill="#3E1E0E" opacity=".75" filter="url(#f-blur2)"/>
+            <path d="M187 236 C183 242 185 248 191 249" stroke="#7A3E22" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>
+            <path d="M213 236 C217 242 215 248 209 249" stroke="#7A3E22" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>
+            <ellipse cx="193" cy="248" rx="3.6" ry="2" fill="#4A2412" opacity=".75" filter="url(#f-blur2)"/>
+            <ellipse cx="207" cy="248" rx="3.6" ry="2" fill="#4A2412" opacity=".75" filter="url(#f-blur2)"/>
             <ellipse cx="200" cy="252" rx="14" ry="4" fill="#7A3E22" opacity=".3" filter="url(#f-blur2)"/>
 
             <!-- mouth: confident half-smile -->
@@ -460,28 +501,21 @@ footer em{font-style:normal; color:var(--accent)}
             <path d="M186 276 C192 284 210 284 216 275 C208 279 194 280 186 276 Z" fill="#A85B47"/>
             <path d="M194 279 C198 281 204 281 208 279" stroke="#D99482" stroke-width="1.6" fill="none" opacity=".7" stroke-linecap="round"/>
             <path d="M222 268 C225 266 227 264 228 262" stroke="#7A3E22" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/>
-            <!-- moustache -->
-            <path d="M172 266 C178 256 190 252 200 257 C210 252 222 256 228 266 C224 270 220 268 216 265 C210 262 204 262 200 263 C196 262 190 262 184 265 C180 268 176 270 172 266 Z" fill="#1A110C" opacity=".88"/>
-            <path d="M184 258 C190 256 196 257 199 259 M216 258 C210 256 204 257 201 259" stroke="#3A2A22" stroke-width="1.4" fill="none" opacity=".7"/>
-            <!-- goatee -->
-            <path d="M182 288 C190 283 210 283 218 288 C220 302 214 314 200 318 C186 314 180 302 182 288 Z" fill="#1A110C" opacity=".6" filter="url(#f-blur2)"/>
-            <path d="M182 288 C190 283 210 283 218 288 C220 302 214 314 200 318 C186 314 180 302 182 288 Z" fill="#000" filter="url(#f-stubble)" opacity=".8"/>
-            <path d="M196 282 C198 286 202 286 204 282 L203 288 H197 Z" fill="#1A110C" opacity=".6"/>
-            <path d="M192 296 C196 304 204 304 208 296" stroke="#3A2A22" stroke-width="1.2" fill="none" opacity=".6"/>
           </g>
 
           <!-- front hair: textured quiff swept up and to the right -->
           <g id="l-hair">
-            <path d="M118 164 C110 116 134 70 182 54 C226 40 276 56 292 100 C298 120 294 146 286 164 C278 144 266 132 250 128 C238 136 220 140 204 138 C186 142 166 140 150 136 C136 142 124 152 118 164 Z" fill="url(#g-hair)"/>
-            <path d="M140 118 C152 80 188 58 232 56 C218 66 204 80 196 98" fill="#2C2322"/>
-            <path d="M200 104 C216 72 252 60 284 82 C266 82 250 92 240 108" fill="#2A2120"/>
-            <path d="M138 110 C158 72 210 52 262 64" stroke="#5C4B48" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".75"/>
-            <path d="M160 120 C184 88 228 76 270 88" stroke="#4A3C39" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/>
-            <path d="M204 128 C224 106 256 100 284 112" stroke="#4A3C39" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".6"/>
-            <path d="M130 140 C138 112 156 94 178 84" stroke="#4A3C39" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".55"/>
-            <path d="M210 52 C236 48 262 56 280 72" stroke="#6A5754" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/>
-            <path d="M120 166 C124 152 132 144 142 138" stroke="#0B0808" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
-            <path d="M286 166 C282 152 274 142 264 134" stroke="#0B0808" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+            <path d="M120 160 C114 112 146 74 196 66 C238 60 280 78 290 118 C294 136 290 152 284 162 C276 140 262 128 244 124 C236 132 222 136 206 134 C190 140 168 138 150 134 C136 140 126 150 120 160 Z" fill="url(#g-hair)"/>
+            <path d="M150 128 C162 96 196 78 236 76 C226 84 212 94 204 108" fill="#2C2322"/>
+            <path d="M206 112 C222 88 252 80 280 96 C262 96 246 102 236 116" fill="#2A2120"/>
+            <path d="M146 116 C166 84 214 70 258 82" stroke="#5C4B48" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".75"/>
+            <path d="M170 122 C190 98 226 90 262 100" stroke="#4A3C39" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/>
+            <path d="M206 128 C224 112 252 108 278 120" stroke="#4A3C39" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".6"/>
+            <path d="M134 140 C142 116 158 102 178 94" stroke="#4A3C39" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".55"/>
+            <path d="M226 72 C246 70 266 76 280 88" stroke="#6A5754" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/>
+            <!-- clean hairline at the temples -->
+            <path d="M122 162 C126 150 134 142 144 136" stroke="#0B0808" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+            <path d="M284 162 C280 150 272 140 262 132" stroke="#0B0808" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
           </g>
         </g>
       </svg>
@@ -536,7 +570,7 @@ footer em{font-style:normal; color:var(--accent)}
         <h2 id="career-title">My career &amp;<span>experience</span></h2>
         <div class="filters" role="group" aria-label="Filter experience" id="filters"></div>
       </div>
-      <div class="career" id="career"></div>
+      <div class="career-box"><div class="career-line" id="career-line"></div><div class="career" id="career"></div></div>
     </section>
 
     <section id="work" aria-labelledby="work-title">
@@ -760,6 +794,87 @@ footer em{font-style:normal; color:var(--accent)}
     cur.x += (target.x - cur.x) * .12; cur.y += (target.y - cur.y) * .12;
     render();
   })(0);
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+// Scroll and cursor effects. Everything here is skipped when the visitor prefers reduced motion.
+(function(){
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  // custom cursor that trails the pointer
+  var cur = document.getElementById("cursor");
+  if(cur && window.matchMedia("(pointer:fine)").matches){
+    var cx = -100, cy = -100, tx = -100, ty = -100;
+    window.addEventListener("pointermove", function(e){ tx = e.clientX; ty = e.clientY; cur.classList.add("on"); }, {passive:true});
+    document.addEventListener("mouseleave", function(){ cur.classList.remove("on"); });
+    document.addEventListener("pointerover", function(e){ if(e.target.closest("a,button,summary")) cur.classList.add("big"); });
+    document.addEventListener("pointerout", function(e){ if(e.target.closest("a,button,summary")) cur.classList.remove("big"); });
+    (function move(){ cx += (tx - cx) * .18; cy += (ty - cy) * .18; cur.style.transform = "translate3d(" + cx + "px," + cy + "px,0)"; requestAnimationFrame(move); })();
+  }
+
+  if(!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  document.documentElement.classList.add("fx");
+
+  // smooth scrolling
+  if(window.Lenis){
+    var lenis = new Lenis({lerp:.1, smoothWheel:true});
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener("click", function(e){
+        var id = a.getAttribute("href"); var el = id.length > 1 ? document.querySelector(id) : document.body;
+        if(el){ e.preventDefault(); lenis.scrollTo(el, {offset:-72}); }
+      });
+    });
+  }
+
+  var mm = gsap.matchMedia();
+
+  // desktop: the character stays on screen, slides beside About, then floats away
+  mm.add("(min-width:1001px)", function(){
+    var orb = document.querySelector(".orb");
+    gsap.timeline({scrollTrigger:{trigger:"#about", start:"top bottom", end:"top 25%", scrub:true}})
+      .to(orb, {x:function(){ return window.innerWidth * .27; }, scale:.92, ease:"none"});
+    gsap.timeline({scrollTrigger:{trigger:"#about", start:"bottom 75%", end:"bottom top", scrub:true}})
+      .to(orb, {y:function(){ return -window.innerHeight * 1.1; }, autoAlpha:0, ease:"none"});
+
+    // work: pin and slide the projects sideways
+    var track = document.getElementById("projects");
+    var dist = function(){ return Math.max(0, track.scrollWidth - track.parentElement.clientWidth); };
+    gsap.to(track, {x:function(){ return -dist(); }, ease:"none",
+      scrollTrigger:{trigger:"#work", start:"top top", end:function(){ return "+=" + dist(); }, pin:true, scrub:1, invalidateOnRefresh:true}});
+  });
+
+  // about slides up and fades in
+  gsap.from(".about", {yPercent:30, autoAlpha:0, ease:"none", scrollTrigger:{trigger:".about", start:"top 95%", end:"top 45%", scrub:true}});
+
+  // what I do: title, then cards one by one
+  gsap.from(".do .big-title", {y:60, autoAlpha:0, duration:1, ease:"power3.out", scrollTrigger:{trigger:".do", start:"top 75%"}});
+  gsap.from(".do-card", {y:60, autoAlpha:0, duration:.9, stagger:.15, ease:"power3.out", scrollTrigger:{trigger:".do-list", start:"top 75%"}});
+
+  // career: the line draws as you scroll, entries fade in in turn
+  gsap.fromTo("#career-line", {scaleY:0}, {scaleY:1, ease:"none", scrollTrigger:{trigger:".career-box", start:"top 70%", end:"bottom 60%", scrub:true}});
+  gsap.utils.toArray("#career .job").forEach(function(job){
+    gsap.from(job, {y:40, autoAlpha:0, duration:.8, ease:"power3.out", scrollTrigger:{trigger:job, start:"top 82%"}});
+  });
+
+  // tech stack tiles pop in
+  gsap.from(".tiles li", {scale:.7, autoAlpha:0, duration:.5, stagger:.05, ease:"back.out(1.6)", scrollTrigger:{trigger:".tiles", start:"top 80%"}});
+
+  // contact
+  gsap.from(".hire .btn, .contact .me", {y:40, autoAlpha:0, duration:.9, stagger:.12, ease:"power3.out", scrollTrigger:{trigger:".contact", start:"top 75%"}});
+
+  // filtering the timeline re-renders it: show new entries without waiting for a scroll
+  document.getElementById("filters").addEventListener("click", function(){
+    requestAnimationFrame(function(){ ScrollTrigger.refresh(); });
+  });
+
+  window.addEventListener("load", function(){ ScrollTrigger.refresh(); });
 })();
 </script>
 </body>
