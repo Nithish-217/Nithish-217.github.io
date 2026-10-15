@@ -12,18 +12,21 @@ window.TIMELINE = [
   {
     date: "2026-03", end: "now", type: "project",
     title: "AI-Enhanced Smart Inventory Management System",
+    tagline: "Ask your inventory questions in plain English", category: "AI / Backend",
     text: "Asynchronous FastAPI + PostgreSQL service where LLM APIs turn plain-English questions into database queries, with automatic issue classification and inventory insights.",
     tags: ["FastAPI", "PostgreSQL", "LLM APIs"]
   },
   {
     date: "2026-01", type: "project",
     title: "CyberSecureVPN",
+    tagline: "Encrypted tunneling with live monitoring", category: "Networking / Security",
     text: "A VPN built from the packet level up: Linux TUN interface, IP routing, AES-256 encryption and Diffie-Hellman key exchange, plus DNS leak protection, a kill switch, split tunneling and a live monitoring dashboard.",
     tags: ["C++", "Linux", "Networking", "Cryptography"]
   },
   {
     date: "2025-12", type: "project",
     title: "Customer Complaint Management Portal",
+    tagline: "Serverless complaint tracking on AWS", category: "Cloud",
     text: "Serverless app on AWS Lambda, API Gateway and DynamoDB with real-time complaint tracking, role-based admin controls and CloudWatch monitoring.",
     tags: ["AWS Lambda", "DynamoDB", "REST"]
   },
@@ -42,6 +45,7 @@ window.TIMELINE = [
   {
     date: "2025-11", type: "project",
     title: "Air Trust: Smart Indoor Air Quality Monitor",
+    tagline: "Real-time indoor air quality on ESP32", category: "IoT",
     text: "ESP32-based IoT device reading air sensors over UART, with a dashboard for AQI, CO₂, PM2.5 and historical trends.",
     tags: ["ESP32", "IoT", "Dashboards"]
   },
