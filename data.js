@@ -81,10 +81,5 @@ window.TIMELINE = [
     title: "B.E. Information Science & Engineering",
     org: "Siddaganga Institute of Technology, Tumakuru",
     text: "CGPA 8.5. Graduating June 2027."
-  },
-  {
-    date: "2016-06", end: "2017-12", type: "win",
-    title: "State-level cricket player",
-    text: "Represented my school in tournaments held in Nepal and Goa."
   }
 ];

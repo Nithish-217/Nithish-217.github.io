@@ -4,202 +4,278 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nithish K</title>
-<meta name="description" content="Nithish K – Information Science engineer from SIT Tumakuru. Backend, networking and IoT projects, internships, hackathon wins and leadership, in order.">
+<meta name="description" content="Nithish K – Information Science engineering student at SIT Tumakuru. Internships, projects, hackathon wins, leadership and certifications in one timeline.">
 <meta property="og:title" content="Nithish K">
-<meta property="og:description" content="Backend, networking and IoT builder. Timeline of internships, projects, wins and leadership.">
+<meta property="og:description" content="Backend, networking and IoT engineer in training. Internships, projects, wins and certifications.">
 <meta property="og:image" content="assets/nithish.jpg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F2B705'/><text x='16' y='23' font-family='Arial' font-weight='900' font-size='18' text-anchor='middle' fill='%2314233A'>NK</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%235B3DF5'/><text x='16' y='22' font-family='Arial' font-weight='900' font-size='15' text-anchor='middle' fill='%23FFD23F'>NK</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#E8EDF0;
+  --bg:#F4F5FF;
   --card:#FFFFFF;
-  --ink:#14233A;
-  --steel:#55657A;
-  --line:#C9D2DA;
-  --tape:#F2B705;
-  --tape-ink:#14233A;
-  --focus:#1F6FEB;
+  --ink:#1A1446;
+  --muted:#5D5A7E;
+  --line:#E0DEF5;
+  --focus:#0066FF;
+
+  /* one colour per kind of achievement */
+  --work:#5B3DF5;     /* violet  */
+  --project:#00A6A6;  /* teal    */
+  --win:#FF8A00;      /* orange  */
+  --lead:#E6337A;     /* pink    */
+  --cert:#2F80ED;     /* blue    */
+  --edu:#16A34A;      /* green   */
+  --sun:#FFD23F;
+
+  --hero-a:#3B1FD1; --hero-b:#7A2BE0; --hero-c:#E6337A;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --paper:#0E1828; --card:#16233A; --ink:#E6ECF2; --steel:#9AA9BC; --line:#26354D;
-    --tape:#F2B705; --tape-ink:#14233A; --focus:#6EA8FE;
+    --bg:#100C2B; --card:#1B1640; --ink:#F1EFFF; --muted:#B4AFD8; --line:#2F2862; --focus:#7FB2FF;
+    --work:#8C74FF; --project:#22CFCF; --win:#FFA53D; --lead:#FF5C9C; --cert:#5DA2FF; --edu:#3DD47A;
   }
 }
 :root[data-theme="dark"]{
-  --paper:#0E1828; --card:#16233A; --ink:#E6ECF2; --steel:#9AA9BC; --line:#26354D;
-  --tape:#F2B705; --tape-ink:#14233A; --focus:#6EA8FE;
+  --bg:#100C2B; --card:#1B1640; --ink:#F1EFFF; --muted:#B4AFD8; --line:#2F2862; --focus:#7FB2FF;
+  --work:#8C74FF; --project:#22CFCF; --win:#FFA53D; --lead:#FF5C9C; --cert:#5DA2FF; --edu:#3DD47A;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0; background:var(--paper); color:var(--ink);
+  margin:0; background:var(--bg); color:var(--ink);
   font-family:"Archivo",system-ui,sans-serif; font-variation-settings:"wdth" 100;
   font-size:17px; line-height:1.55;
 }
 a{color:inherit}
-:focus-visible{outline:3px solid var(--focus); outline-offset:3px; border-radius:4px}
-.wrap{max-width:1040px; margin:0 auto; padding:0 24px}
+:focus-visible{outline:3px solid var(--focus); outline-offset:3px; border-radius:6px}
+.wrap{max-width:1080px; margin:0 auto; padding:0 24px}
 
 /* ---------- hero ---------- */
-.hero{padding:72px 0 56px; display:grid; grid-template-columns:1fr auto; gap:48px; align-items:end}
-.hero > div, .entry{min-width:0; overflow-wrap:anywhere}
-.hero h1{
-  margin:0; font-weight:900; font-stretch:125%; font-variation-settings:"wdth" 125;
-  font-size:clamp(64px, 13vw, 168px); line-height:.86; letter-spacing:-.03em;
-}
-.hero .lede{max-width:34ch; font-size:clamp(19px,2.2vw,23px); line-height:1.4; margin:28px 0 0}
-.hero .where{color:var(--steel); margin:12px 0 0; max-width:52ch}
-.links{display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; padding:0; list-style:none}
-.links a{
-  display:inline-block; text-decoration:none; font-weight:600; font-size:15px;
-  padding:9px 16px; border:1.5px solid var(--ink); border-radius:999px;
-}
-.links a:hover{background:var(--ink); color:var(--paper)}
-.links a.primary{background:var(--tape); border-color:var(--tape); color:var(--tape-ink)}
-.portrait{position:relative; width:220px}
-.portrait img{display:block; width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 20%; border-radius:6px; background:#fff}
-.portrait .now{
-  position:absolute; left:-28px; right:-12px; bottom:-18px;
-  background:var(--tape); color:var(--tape-ink); padding:10px 14px; border-radius:4px;
-  font-size:13.5px; line-height:1.35; transform:rotate(-2deg);
-  box-shadow:0 2px 0 rgba(20,35,58,.25);
-}
-.portrait .now b{display:block; font-size:12px; font-weight:700; opacity:.75}
-
-/* ---------- timeline: a measuring tape ---------- */
-.section-head{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:end; gap:16px; margin:24px 0 28px}
-h2{margin:0; font-size:clamp(30px,4.4vw,44px); font-weight:800; font-variation-settings:"wdth" 112; letter-spacing:-.015em; line-height:1}
-.filters{display:flex; flex-wrap:wrap; gap:6px}
-.filters button{
-  font:inherit; font-size:14px; font-weight:600; cursor:pointer;
-  background:transparent; color:var(--ink); border:1.5px solid var(--line);
-  border-radius:999px; padding:6px 13px;
-}
-.filters button[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
-.filters button span{opacity:.6; font-weight:500; margin-left:4px}
-
-.tape{position:relative; padding-left:112px}
-.tape::before{ /* the tape strip with tick marks */
-  content:""; position:absolute; left:0; top:0; bottom:0; width:76px; border-radius:4px;
+.hero{
+  position:relative; overflow:hidden; color:#fff;
   background:
-    repeating-linear-gradient(to bottom, var(--tape-ink) 0 1.5px, transparent 1.5px 12px) left top / 14px 100% no-repeat,
-    repeating-linear-gradient(to bottom, var(--tape-ink) 0 2px, transparent 2px 60px) left top / 26px 100% no-repeat,
-    var(--tape);
-  opacity:1;
+    radial-gradient(600px 420px at 88% 18%, rgba(255,210,63,.55), transparent 60%),
+    radial-gradient(520px 520px at 8% 110%, rgba(0,166,166,.65), transparent 60%),
+    linear-gradient(125deg, var(--hero-a) 0%, var(--hero-b) 52%, var(--hero-c) 100%);
 }
-.year{position:relative; padding:6px 0 18px}
+.hero::after{ /* faint graph-paper grid */
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size:32px 32px;
+}
+.hero .wrap{position:relative; z-index:1; display:grid; grid-template-columns:1fr auto; gap:56px; align-items:center; padding-top:80px; padding-bottom:88px}
+.hero > .wrap > div{min-width:0}
+.hello{display:inline-block; margin:0 0 18px; padding:6px 14px; border-radius:999px; background:rgba(255,255,255,.16); font-weight:600; font-size:15px; backdrop-filter:blur(4px)}
+.hero h1{
+  margin:0; font-weight:900; font-variation-settings:"wdth" 125;
+  font-size:clamp(60px, 11vw, 148px); line-height:.88; letter-spacing:-.03em;
+  text-shadow:0 6px 0 rgba(26,20,70,.25);
+}
+.hero .lede{max-width:36ch; font-size:clamp(19px,2.2vw,24px); line-height:1.4; margin:24px 0 0; font-weight:500}
+.hero .where{margin:10px 0 0; max-width:52ch; color:rgba(255,255,255,.85)}
+.links{display:flex; flex-wrap:wrap; gap:10px; margin:30px 0 0; padding:0; list-style:none}
+.links a{
+  display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-weight:700; font-size:15px;
+  padding:10px 18px; border-radius:999px; background:rgba(255,255,255,.14); border:1.5px solid rgba(255,255,255,.5); color:#fff;
+}
+.links a:hover{background:#fff; color:var(--hero-a)}
+.links a.primary{background:var(--sun); border-color:var(--sun); color:#1A1446}
+.links svg{width:17px; height:17px; fill:currentColor}
+
+.portrait{position:relative; width:250px}
+.portrait .frame{
+  padding:8px; border-radius:28px; transform:rotate(3deg);
+  background:conic-gradient(from 200deg, var(--sun), #FF8A00, #E6337A, #5B3DF5, #00A6A6, var(--sun));
+  box-shadow:0 24px 48px rgba(20,10,70,.35);
+}
+.portrait img{display:block; width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 20%; border-radius:21px; background:#fff; transform:rotate(-3deg)}
+.portrait .now{
+  position:absolute; left:-36px; bottom:-26px; max-width:230px;
+  background:#fff; color:#1A1446; padding:10px 14px 11px; border-radius:14px;
+  font-size:13.5px; line-height:1.35; box-shadow:0 10px 24px rgba(20,10,70,.3);
+  border-left:6px solid var(--project);
+}
+.portrait .now b{display:block; font-size:12.5px; color:var(--project)}
+
+/* ---------- highlights ---------- */
+.highlights{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:-44px 0 0; position:relative; z-index:2; padding:0; list-style:none}
+.highlights li{border-radius:18px; padding:18px 20px; color:#fff; box-shadow:0 12px 28px rgba(26,20,70,.18)}
+.highlights strong{display:block; font-size:34px; line-height:1; font-weight:900; font-variation-settings:"wdth" 112}
+.highlights span{display:block; margin-top:6px; font-size:14.5px; font-weight:500; opacity:.95}
+.highlights .h1{background:linear-gradient(135deg,#5B3DF5,#8C5CFF)}
+.highlights .h2{background:linear-gradient(135deg,#FF8A00,#FFB23F); color:#1A1446}
+.highlights .h3{background:linear-gradient(135deg,#00A6A6,#2FD3B5)}
+.highlights .h4{background:linear-gradient(135deg,#E6337A,#FF6FA6)}
+
+/* ---------- timeline ---------- */
+.section-head{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:end; gap:16px; margin:80px 0 30px}
+h2{margin:0; font-size:clamp(32px,4.6vw,48px); font-weight:900; font-variation-settings:"wdth" 115; letter-spacing:-.02em; line-height:1}
+.filters{display:flex; flex-wrap:wrap; gap:8px}
+.filters button{
+  --c:var(--ink);
+  font:inherit; font-size:14px; font-weight:700; cursor:pointer;
+  background:var(--card); color:var(--c); border:2px solid var(--c);
+  border-radius:999px; padding:6px 14px;
+}
+.filters button:hover{background:color-mix(in srgb, var(--c) 12%, var(--card))}
+.filters button[aria-pressed="true"]{background:var(--c); color:#fff}
+.filters button.all[aria-pressed="true"]{color:var(--bg)}
+.filters button span{opacity:.75; font-weight:500; margin-left:5px}
+
+.tape{position:relative; padding-left:116px}
+.tape::before{ /* a colourful measuring tape */
+  content:""; position:absolute; left:0; top:0; bottom:0; width:78px; border-radius:12px;
+  background:
+    repeating-linear-gradient(to bottom, rgba(26,20,70,.55) 0 1.5px, transparent 1.5px 12px) left top / 14px 100% no-repeat,
+    repeating-linear-gradient(to bottom, rgba(26,20,70,.7) 0 2px, transparent 2px 60px) left top / 26px 100% no-repeat,
+    linear-gradient(to bottom, #FFD23F, #FF8A00 25%, #E6337A 50%, #7A2BE0 75%, #00A6A6);
+}
+.year{position:relative; padding:4px 0 20px}
 .year-label{
-  position:absolute; left:-112px; top:0; width:76px; text-align:right; padding-right:10px;
-  font-weight:900; font-size:22px; color:var(--tape-ink); font-variation-settings:"wdth" 75;
-  background:var(--tape); line-height:1.6;
+  position:absolute; left:-116px; top:6px; width:78px; text-align:right; padding-right:10px;
+  font-weight:900; font-size:23px; color:#fff; font-variation-settings:"wdth" 80;
+  text-shadow:0 2px 0 rgba(26,20,70,.35);
 }
-.year + .year{border-top:1px dashed var(--line)}
 .entry{
-  position:relative; background:var(--card); border-radius:10px; padding:18px 22px 20px; margin:10px 0 14px;
-  border:1px solid var(--line);
+  --c:var(--work);
+  position:relative; background:var(--card); border-radius:18px; padding:20px 24px 22px; margin:10px 0 16px;
+  border:1px solid var(--line); border-top:5px solid var(--c);
+  box-shadow:0 6px 18px color-mix(in srgb, var(--c) 14%, transparent);
+  min-width:0; overflow-wrap:anywhere;
 }
-.entry::before{ /* pointer from tape to entry */
-  content:""; position:absolute; left:-37px; top:26px; width:36px; height:2px; background:var(--ink);
-}
+.entry::before{ content:""; position:absolute; left:-39px; top:30px; width:38px; height:3px; background:var(--c); border-radius:2px }
 .entry::after{
-  content:""; position:absolute; left:-41px; top:22px; width:10px; height:10px; border-radius:50%;
-  background:var(--card); border:2px solid var(--ink);
+  content:""; position:absolute; left:-46px; top:24px; width:15px; height:15px; border-radius:50%;
+  background:var(--c); border:3px solid var(--card); box-shadow:0 0 0 2px var(--c);
 }
-.entry.win::after{background:var(--tape)}
-.meta{display:flex; flex-wrap:wrap; gap:6px 12px; align-items:center; font-size:14px; color:var(--steel)}
-.kind{font-weight:700; color:var(--ink); padding:2px 9px; border-radius:4px; background:var(--paper); font-size:13px}
-.entry.win .kind{background:var(--tape); color:var(--tape-ink)}
-.entry h3{margin:8px 0 2px; font-size:21px; line-height:1.25; font-weight:750}
-.entry .org{margin:0; color:var(--steel); font-size:15.5px}
-.entry p.text{margin:10px 0 0; max-width:68ch}
-.tags{display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 0; padding:0; list-style:none}
-.tags li{font-size:13px; padding:2px 9px; border:1px solid var(--line); border-radius:999px; color:var(--steel)}
-.entry a.verify{display:inline-block; margin-top:10px; font-weight:600; font-size:15px}
-.empty{color:var(--steel); padding:20px 0}
+.entry.work{--c:var(--work)} .entry.project{--c:var(--project)} .entry.win{--c:var(--win)}
+.entry.lead{--c:var(--lead)} .entry.cert{--c:var(--cert)} .entry.edu{--c:var(--edu)}
+.meta{display:flex; flex-wrap:wrap; gap:6px 12px; align-items:center; font-size:14px; color:var(--muted); font-weight:500}
+.kind{font-weight:800; color:#fff; padding:3px 11px; border-radius:999px; background:var(--c); font-size:13px}
+.entry h3{margin:10px 0 2px; font-size:22px; line-height:1.25; font-weight:800}
+.entry .org{margin:0; color:var(--c); font-size:15.5px; font-weight:600}
+.entry p.text{margin:10px 0 0; max-width:70ch}
+.tags{display:flex; flex-wrap:wrap; gap:6px; margin:14px 0 0; padding:0; list-style:none}
+.tags li{font-size:13px; font-weight:600; padding:3px 10px; border-radius:999px; color:var(--c); background:color-mix(in srgb, var(--c) 13%, transparent)}
+.entry a.verify{display:inline-block; margin-top:12px; font-weight:700; font-size:15px; color:var(--c)}
+.empty{color:var(--muted); padding:20px 0}
 
-/* ---------- skills + contact ---------- */
-.skills{margin:80px 0 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:28px 40px}
-.skills h3{margin:0 0 8px; font-size:16px; font-weight:750}
-.skills p{margin:0; color:var(--steel)}
-footer{margin:96px 0 0; padding:40px 0 56px; border-top:2px solid var(--ink)}
-footer h2{margin-bottom:14px}
-footer p{margin:0; color:var(--steel); max-width:60ch}
-.small{font-size:14px; color:var(--steel); margin-top:32px}
+/* ---------- skills ---------- */
+.skills{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px; margin:0; padding:0; list-style:none}
+.skills li{--c:var(--work); background:var(--card); border-radius:18px; padding:20px 22px; border:1px solid var(--line); border-left:6px solid var(--c)}
+.skills h3{margin:0 0 12px; font-size:17px; font-weight:800; color:var(--c)}
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chips span{font-size:14px; font-weight:600; padding:4px 11px; border-radius:999px; background:color-mix(in srgb, var(--c) 14%, transparent); color:var(--ink)}
 
-/* page-load: the tape unrolls once */
+/* ---------- footer ---------- */
+footer{
+  margin:96px 0 0; color:#fff;
+  background:linear-gradient(125deg, var(--hero-a), var(--hero-b) 55%, var(--hero-c));
+}
+footer .wrap{padding-top:56px; padding-bottom:48px}
+footer p{margin:14px 0 0; max-width:60ch; color:rgba(255,255,255,.9)}
+footer .links{margin-top:24px}
+.small{font-size:14px; margin-top:40px !important; color:rgba(255,255,255,.7) !important}
+
+/* one page-load moment: the tape unrolls */
 @media (prefers-reduced-motion: no-preference){
-  .tape::before{animation:unroll 1.1s cubic-bezier(.2,.7,.2,1) both; transform-origin:top}
+  .tape::before{animation:unroll 1.2s cubic-bezier(.2,.7,.2,1) both; transform-origin:top}
   @keyframes unroll{from{transform:scaleY(0)} to{transform:scaleY(1)}}
 }
 
+@media (max-width:860px){
+  .highlights{grid-template-columns:repeat(2,1fr)}
+}
 @media (max-width:760px){
-  .hero{grid-template-columns:1fr; padding-top:40px; gap:40px}
-  .portrait{width:180px; order:-1; margin-left:24px}
-  .tape{padding-left:58px}
-  .tape::before{width:34px}
-  .year-label{left:-58px; width:34px; font-size:13px; padding-right:3px; writing-mode:vertical-rl; transform:rotate(180deg); text-align:left; padding:6px 0; line-height:34px}
+  .hero .wrap{grid-template-columns:1fr; padding-top:44px; gap:48px; padding-bottom:84px}
+  .portrait{width:190px; order:-1; margin-left:30px}
+  .tape{padding-left:56px}
+  .tape::before{width:32px}
+  .year-label{left:-56px; width:32px; font-size:14px; padding:4px 0; writing-mode:vertical-rl; transform:rotate(180deg); text-align:left; line-height:32px}
   .entry::before{left:-21px; width:20px}
-  .entry::after{left:-25px}
+  .entry::after{left:-28px}
   .entry{padding:16px 16px 18px}
 }
-@media (max-width:420px){ .wrap{padding:0 16px} }
+@media (max-width:420px){
+  .wrap{padding:0 16px}
+  .highlights strong{font-size:28px}
+}
 </style>
 </head>
 <body>
-<main class="wrap">
-  <header class="hero">
+<header class="hero">
+  <div class="wrap">
     <div>
+      <p class="hello">Software engineering student</p>
       <h1>Nithish K</h1>
-      <p class="lede">I build backend systems, secure networks and small devices that measure things.</p>
-      <p class="where">Information Science &amp; Engineering at Siddaganga Institute of Technology, Tumakuru. Graduating June 2027.</p>
+      <p class="lede">I build backend systems, secure networks and IoT devices that solve real problems.</p>
+      <p class="where">B.E. in Information Science &amp; Engineering, Siddaganga Institute of Technology, Tumakuru. Graduating June 2027.</p>
       <ul class="links">
-        <li><a class="primary" href="mailto:nithishk2175@gmail.com">Email me</a></li>
-        <li><a href="https://www.linkedin.com/in/nithishk-sit" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://github.com/Nithish-217" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://leetcode.com/u/Nithish_official/" target="_blank" rel="noopener">LeetCode</a></li>
+        <li><a class="primary" href="mailto:nithishk2175@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5h20v14H2zm2 2v.5l8 5 8-5V7zm16 2.8-8 5-8-5V17h16z"/></svg>Email me</a></li>
+        <li><a href="https://www.linkedin.com/in/nithishk-sit" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zm7 0h3.8v1.7h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"/></svg>LinkedIn</a></li>
+        <li><a href="https://github.com/Nithish-217" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a></li>
+        <li><a href="https://leetcode.com/u/Nithish_official/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 2 6 9.6a3.6 3.6 0 0 0 0 5l4.4 4.5a3.6 3.6 0 0 0 5 0l2.3-2.3-1.4-1.4-2.3 2.3a1.6 1.6 0 0 1-2.3 0L7.4 13.2a1.6 1.6 0 0 1 0-2.3L14.9 3.4zM10 12h10v2H10z"/></svg>LeetCode</a></li>
       </ul>
     </div>
     <div class="portrait">
-      <img src="assets/nithish.jpg" alt="Portrait of Nithish K" width="380" height="475">
-      <div class="now"><b>Right now</b>Building an AI-powered inventory system with FastAPI and LLMs</div>
+      <div class="frame"><img src="assets/nithish.jpg" alt="Portrait of Nithish K" width="380" height="475"></div>
+      <div class="now"><b>Currently building</b>An AI-powered inventory system with FastAPI and LLMs</div>
     </div>
-  </header>
+  </div>
+</header>
+
+<main class="wrap">
+  <ul class="highlights" aria-label="Highlights">
+    <li class="h1"><strong>2</strong><span>Industry internships</span></li>
+    <li class="h2"><strong>2</strong><span>1st-place wins: hackathon &amp; state-level pitch</span></li>
+    <li class="h3"><strong>1,000+</strong><span>Assets managed by my CMTI system</span></li>
+    <li class="h4"><strong>25+</strong><span>Workshops led as IIC chief coordinator</span></li>
+  </ul>
 
   <section aria-labelledby="tl-title">
     <div class="section-head">
-      <h2 id="tl-title">Timeline</h2>
+      <h2 id="tl-title">My journey</h2>
       <div class="filters" role="group" aria-label="Filter timeline" id="filters"></div>
     </div>
     <div class="tape" id="timeline"></div>
   </section>
 
-  <section class="skills" aria-label="Skills">
-    <div><h3>Languages</h3><p>C++, Python, C, SQL</p></div>
-    <div><h3>Backend &amp; cloud</h3><p>FastAPI, REST APIs, PostgreSQL, AWS Lambda, API Gateway, DynamoDB</p></div>
-    <div><h3>Systems</h3><p>Linux, computer networks, operating systems, VPNs and cryptography, ESP32 / IoT</p></div>
-    <div><h3>Foundations</h3><p>Data structures &amp; algorithms, OOP, DBMS, Git</p></div>
+  <section aria-labelledby="sk-title">
+    <div class="section-head"><h2 id="sk-title">Skills</h2></div>
+    <ul class="skills">
+      <li style="--c:var(--work)"><h3>Languages</h3><div class="chips"><span>C++</span><span>Python</span><span>C</span><span>SQL</span></div></li>
+      <li style="--c:var(--project)"><h3>Backend &amp; cloud</h3><div class="chips"><span>FastAPI</span><span>REST APIs</span><span>PostgreSQL</span><span>AWS Lambda</span><span>API Gateway</span><span>DynamoDB</span></div></li>
+      <li style="--c:var(--lead)"><h3>Systems &amp; security</h3><div class="chips"><span>Linux</span><span>Computer networks</span><span>Operating systems</span><span>VPN &amp; cryptography</span><span>ESP32 / IoT</span></div></li>
+      <li style="--c:var(--win)"><h3>Core CS</h3><div class="chips"><span>Data structures &amp; algorithms</span><span>OOP</span><span>DBMS</span><span>Git</span></div></li>
+    </ul>
   </section>
-
-  <footer>
-    <h2>Let's talk</h2>
-    <p>Open to software engineering internships and full-time roles from 2027. The fastest way to reach me is <a href="mailto:nithishk2175@gmail.com">nithishk2175@gmail.com</a>.</p>
-    <p class="small">© <span id="yr"></span> Nithish K</p>
-  </footer>
 </main>
+
+<footer>
+  <div class="wrap">
+    <h2>Let's work together</h2>
+    <p>I'm open to software engineering internships and full-time roles starting 2027. Email is the fastest way to reach me.</p>
+    <ul class="links">
+      <li><a class="primary" href="mailto:nithishk2175@gmail.com">nithishk2175@gmail.com</a></li>
+      <li><a href="https://www.linkedin.com/in/nithishk-sit" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/Nithish-217" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="small">© <span id="yr"></span> Nithish K</p>
+  </div>
+</footer>
 
 <script src="data.js"></script>
 <script>
 (function(){
   var KINDS = {
-    work:{label:"Work", name:"Internships"},
+    work:{label:"Internship", name:"Internships"},
     project:{label:"Project", name:"Projects"},
-    win:{label:"Win", name:"Wins"},
+    win:{label:"Award", name:"Awards"},
     lead:{label:"Leadership", name:"Leadership"},
-    cert:{label:"Certificate", name:"Certificates"},
+    cert:{label:"Certification", name:"Certifications"},
     edu:{label:"Education", name:"Education"}
   };
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -216,7 +292,8 @@ footer p{margin:0; color:var(--steel); max-width:60ch}
     var keys = ["all"].concat(Object.keys(KINDS).filter(function(k){ return counts[k]; }));
     keys.forEach(function(k){
       var b = el("button", null, k === "all" ? "Everything" : KINDS[k].name);
-      var c = el("span", null, k === "all" ? items.length : counts[k]); b.appendChild(c);
+      if(k === "all") b.className = "all"; else b.style.setProperty("--c", "var(--" + k + ")");
+      b.appendChild(el("span", null, k === "all" ? items.length : counts[k]));
       b.setAttribute("aria-pressed", k === active);
       b.addEventListener("click", function(){
         active = k;
