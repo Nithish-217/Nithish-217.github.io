@@ -73,11 +73,8 @@ img{max-width:100%}
 .role{margin:4px 0 0; font-size:clamp(34px,4.2vw,64px); font-weight:800; line-height:1; text-transform:uppercase; letter-spacing:-.01em; min-height:2em}
 .role .r1{display:block; color:var(--ink)}
 .role .r2{display:block; color:var(--accent)}
-.orb{position:relative; justify-self:center; width:100%; max-width:460px; aspect-ratio:1}
-.orb::before{content:""; position:absolute; inset:18%; border-radius:50%; background:radial-gradient(circle, rgba(139,92,246,.75), rgba(139,92,246,.18) 55%, transparent 72%); filter:blur(30px)}
-.orb canvas{position:relative; display:block; width:100%; height:100%; cursor:grab}
-.orb .fallback{position:absolute; inset:28%; border-radius:50%; background:radial-gradient(circle at 35% 30%, #E9E3FF, #8B5CF6 45%, #2E1A66 80%); box-shadow:0 0 80px rgba(139,92,246,.7); display:none}
-.orb.no-webgl .fallback{display:block}
+.orb{position:relative; justify-self:center; width:100%; max-width:460px; aspect-ratio:400/440}
+.orb img{position:relative; display:block; width:100%; height:100%}
 .scroll-hint{position:absolute; left:50%; bottom:28px; transform:translateX(-50%); color:var(--dim); font-size:13px; letter-spacing:.3em; text-transform:uppercase; text-decoration:none}
 
 @media (prefers-reduced-motion: no-preference){
@@ -271,7 +268,7 @@ footer em{font-style:normal; color:var(--accent)}
       <p class="hello">Hello! I'm</p>
       <h1 class="name">Nithish K</h1>
     </div>
-    <div class="orb" id="orb" aria-hidden="true"><canvas id="orb-canvas"></canvas><div class="fallback"></div></div>
+    <div class="orb"><img src="assets/avatar.svg" alt="Cartoon avatar of Nithish K at a laptop" width="400" height="440"></div>
     <div class="right">
       <p class="an">A</p>
       <p class="role" aria-hidden="true"><span class="swap r1" id="r1">Backend</span><span class="swap r2" id="r2">Engineer</span></p>
@@ -475,87 +472,6 @@ footer em{font-style:normal; color:var(--accent)}
 
   document.getElementById("yr").textContent = new Date().getFullYear();
   renderFilters(); renderCareer(); renderProjects(); rotateRoles();
-})();
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
-// Glowing 3D network globe in the hero
-(function(){
-  var box = document.getElementById("orb"), canvas = document.getElementById("orb-canvas");
-  if(!window.THREE){ box.classList.add("no-webgl"); return; }
-  var renderer;
-  try { renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true}); }
-  catch(e){ box.classList.add("no-webgl"); return; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-
-  var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-  camera.position.z = 7.2;
-  var add = THREE.AdditiveBlending;
-  var globe = new THREE.Group(); scene.add(globe);
-
-  // inner network mesh: wireframe + glowing nodes
-  var ico = new THREE.IcosahedronGeometry(1.8, 2);
-  globe.add(new THREE.LineSegments(new THREE.WireframeGeometry(ico),
-    new THREE.LineBasicMaterial({color:0x8B5CF6, transparent:true, opacity:.55, blending:add})));
-  globe.add(new THREE.Points(ico,
-    new THREE.PointsMaterial({color:0xE9E3FF, size:.075, transparent:true, opacity:.95, blending:add})));
-
-  // glowing core
-  var core = new THREE.Mesh(new THREE.SphereGeometry(.42, 32, 32),
-    new THREE.MeshBasicMaterial({color:0xE9E3FF, transparent:true, opacity:.85, blending:add}));
-  globe.add(core);
-  var halo = new THREE.Mesh(new THREE.SphereGeometry(.8, 32, 32),
-    new THREE.MeshBasicMaterial({color:0x8B5CF6, transparent:true, opacity:.28, blending:add}));
-  globe.add(halo);
-
-  // outer shell rotating the other way
-  var shell = new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(2.45, 1)),
-    new THREE.LineBasicMaterial({color:0xC4B5FD, transparent:true, opacity:.16, blending:add}));
-  scene.add(shell);
-
-  // orbiting particle ring
-  var n = 520, pos = new Float32Array(n * 3);
-  for(var i = 0; i < n; i++){
-    var t = Math.random() * Math.PI * 2, r = 2.9 + (Math.random() - .5) * .5;
-    pos[i*3] = Math.cos(t) * r; pos[i*3+1] = (Math.random() - .5) * .18; pos[i*3+2] = Math.sin(t) * r;
-  }
-  var ringGeo = new THREE.BufferGeometry(); ringGeo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-  var ring = new THREE.Points(ringGeo, new THREE.PointsMaterial({color:0xC4B5FD, size:.035, transparent:true, opacity:.8, blending:add}));
-  ring.rotation.x = 1.15; ring.rotation.y = .3;
-  scene.add(ring);
-
-  function resize(){
-    var w = box.clientWidth, h = box.clientHeight;
-    if(!w || !h) return;
-    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
-  }
-  resize();
-  if(window.ResizeObserver) new ResizeObserver(resize).observe(box); else window.addEventListener("resize", resize);
-
-  // tilt toward the pointer
-  var tx = 0, ty = 0, mx = 0, my = 0;
-  window.addEventListener("pointermove", function(e){
-    tx = (e.clientX / window.innerWidth - .5) * .9;
-    ty = (e.clientY / window.innerHeight - .5) * .7;
-  });
-
-  var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var visible = true;
-  if(window.IntersectionObserver) new IntersectionObserver(function(es){ visible = es[0].isIntersecting; }).observe(box);
-  var clock = new THREE.Clock();
-  function frame(){
-    var t = clock.getElapsedTime();
-    mx += (tx - mx) * .05; my += (ty - my) * .05;
-    globe.rotation.y = t * .25 + mx; globe.rotation.x = .25 + my;
-    shell.rotation.y = -t * .12; shell.rotation.z = t * .05;
-    ring.rotation.z = t * .18;
-    var pulse = 1 + Math.sin(t * 2.2) * .06;
-    core.scale.setScalar(pulse); halo.scale.setScalar(1 + Math.sin(t * 2.2 + .6) * .12);
-    renderer.render(scene, camera);
-  }
-  if(still){ frame(); return; }
-  (function loop(){ requestAnimationFrame(loop); if(visible) frame(); })();
 })();
 </script>
 </body>
