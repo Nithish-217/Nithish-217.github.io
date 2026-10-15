@@ -73,20 +73,16 @@ img{max-width:100%}
 .role{margin:4px 0 0; font-size:clamp(34px,4.2vw,64px); font-weight:800; line-height:1; text-transform:uppercase; letter-spacing:-.01em; min-height:2em}
 .role .r1{display:block; color:var(--ink)}
 .role .r2{display:block; color:var(--accent)}
-.orb{position:relative; justify-self:center; width:100%; max-width:400px; aspect-ratio:756/1020}
-.orb::before{content:""; position:absolute; inset:6% 2% 22%; border-radius:50%; background:radial-gradient(circle, rgba(139,92,246,.7), rgba(139,92,246,.15) 60%, transparent 72%); filter:blur(28px)}
-.orb img{position:relative; display:block; width:100%; height:100%; object-fit:contain;
-  -webkit-mask:linear-gradient(to bottom, #000 55%, transparent 92%), linear-gradient(to right, transparent 2%, #000 22%, #000 78%, transparent 98%);
-  -webkit-mask-composite:source-in;
-  mask:linear-gradient(to bottom, #000 55%, transparent 92%), linear-gradient(to right, transparent 2%, #000 22%, #000 78%, transparent 98%);
-  mask-composite:intersect}
+.orb{position:relative; justify-self:center; width:100%; max-width:420px; aspect-ratio:400/460}
+.orb .dev{position:relative; display:block; width:100%; height:100%; overflow:visible;
+  -webkit-mask:linear-gradient(to bottom, #000 78%, transparent 100%); mask:linear-gradient(to bottom, #000 78%, transparent 100%)}
 .badge-f{position:absolute; display:grid; place-items:center; min-width:58px; height:38px; padding:0 12px; border-radius:11px;
   background:rgba(24,19,44,.85); border:2px solid var(--c); color:var(--c); font:700 15px/1 Consolas, monospace; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px)}
 .badge-f svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linejoin:round}
-.b-api{--c:#A78BFA; left:-4%; top:16%}
-.b-sec{--c:#22D3C5; right:-4%; top:12%}
-.b-cloud{--c:#60A5FA; left:2%; top:48%}
-.b-ai{--c:#FBBF24; right:2%; top:44%}
+.b-api{--c:#A78BFA; left:-6%; top:14%}
+.b-sec{--c:#22D3C5; right:-6%; top:10%}
+.b-cloud{--c:#60A5FA; left:-2%; top:60%}
+.b-ai{--c:#FBBF24; right:-2%; top:56%}
 @media (prefers-reduced-motion: no-preference){
   .badge-f{animation:bob 4.4s ease-in-out infinite}
   .b-sec{animation-delay:.8s} .b-cloud{animation-delay:1.5s} .b-ai{animation-delay:2.2s}
@@ -286,7 +282,172 @@ footer em{font-style:normal; color:var(--accent)}
       <h1 class="name">Nithish K</h1>
     </div>
     <div class="orb">
-      <img src="assets/avatar.webp" alt="Illustrated portrait of Nithish K" width="756" height="1020">
+      <svg class="dev" id="dev" viewBox="0 0 400 460" role="img" aria-label="Cartoon developer character that looks toward your cursor">
+        <defs>
+          <radialGradient id="g-skin" cx="45%" cy="40%" r="65%">
+            <stop offset="0" stop-color="#F1C3A0"/>
+            <stop offset=".55" stop-color="#D9996F"/>
+            <stop offset="1" stop-color="#A9663F"/>
+          </radialGradient>
+          <linearGradient id="g-neck" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9C5C3A"/>
+            <stop offset=".5" stop-color="#C48058"/>
+            <stop offset="1" stop-color="#B87550"/>
+          </linearGradient>
+          <radialGradient id="g-ear" cx="50%" cy="45%" r="60%">
+            <stop offset="0" stop-color="#E3A781"/>
+            <stop offset="1" stop-color="#B06B45"/>
+          </radialGradient>
+          <linearGradient id="g-hair" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#3A2E44"/>
+            <stop offset=".5" stop-color="#1E1726"/>
+            <stop offset="1" stop-color="#0E0A13"/>
+          </linearGradient>
+          <linearGradient id="g-hood" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#6D4FD6"/>
+            <stop offset=".6" stop-color="#3E2A8C"/>
+            <stop offset="1" stop-color="#21184D"/>
+          </linearGradient>
+          <linearGradient id="g-hood-in" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2A1C60"/>
+            <stop offset="1" stop-color="#3E2A8C"/>
+          </linearGradient>
+          <radialGradient id="g-white" cx="50%" cy="40%" r="60%">
+            <stop offset="0" stop-color="#FFFFFF"/>
+            <stop offset="1" stop-color="#E6DEE8"/>
+          </radialGradient>
+          <radialGradient id="g-iris" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#8A5A34"/>
+            <stop offset=".7" stop-color="#5A3720"/>
+            <stop offset="1" stop-color="#2B1A0F"/>
+          </radialGradient>
+          <radialGradient id="g-glow" cx="50%" cy="45%" r="50%">
+            <stop offset="0" stop-color="#8B5CF6" stop-opacity=".75"/>
+            <stop offset=".6" stop-color="#8B5CF6" stop-opacity=".15"/>
+            <stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
+          </radialGradient>
+          <clipPath id="c-eye-l"><path d="M146 200 C153 186 179 185 188 199 C180 211 154 212 146 200 Z"/></clipPath>
+          <clipPath id="c-eye-r"><path d="M212 199 C221 185 247 186 254 200 C246 212 220 211 212 199 Z"/></clipPath>
+          <filter id="f-blur4" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
+          <filter id="f-blur8" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
+        </defs>
+
+        <circle cx="200" cy="200" r="200" fill="url(#g-glow)"/>
+
+        <!-- body: hoodie -->
+        <g id="body">
+          <path d="M34 460 C40 382 98 344 158 334 L242 334 C302 344 360 382 366 460 Z" fill="url(#g-hood)"/>
+          <path d="M70 460 C76 410 96 386 120 372" stroke="#8C72F0" stroke-opacity=".35" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M330 460 C324 410 304 386 280 372" stroke="#160F36" stroke-opacity=".5" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <!-- neck -->
+          <path d="M170 276 L168 336 C180 352 220 352 232 336 L230 276 Z" fill="url(#g-neck)"/>
+          <ellipse cx="200" cy="292" rx="40" ry="16" fill="#6E3A22" opacity=".45" filter="url(#f-blur4)"/>
+          <!-- tee neckline -->
+          <path d="M162 334 C176 362 224 362 238 334 C230 352 170 352 162 334 Z" fill="#EDE9F5"/>
+          <!-- hood collar -->
+          <path d="M140 326 C150 368 250 368 260 326 C284 334 300 350 306 366 C270 392 130 392 94 366 C100 350 116 334 140 326 Z" fill="url(#g-hood-in)"/>
+          <path d="M140 326 C150 368 250 368 260 326" stroke="#7D62E8" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+          <!-- drawstrings -->
+          <path d="M184 372 C182 392 180 410 182 428" stroke="#E9E3FF" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M216 372 C218 392 220 410 218 428" stroke="#E9E3FF" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <rect x="178" y="426" width="8" height="14" rx="3" fill="#C4B5FD"/>
+          <rect x="214" y="426" width="8" height="14" rx="3" fill="#C4B5FD"/>
+          <!-- chest logo -->
+          <text x="290" y="430" text-anchor="middle" font-family="Consolas, monospace" font-size="18" font-weight="700" fill="#C4B5FD" opacity=".85">&lt;/&gt;</text>
+        </g>
+
+        <!-- head (moved by script) -->
+        <g id="head">
+          <g id="l-back">
+            <!-- back hair -->
+            <path d="M104 200 C92 120 138 62 204 62 C272 62 312 118 298 200 C292 166 284 146 272 132 L130 132 C118 146 110 166 104 200 Z" fill="url(#g-hair)"/>
+            <!-- ears -->
+            <ellipse cx="110" cy="204" rx="16" ry="26" fill="url(#g-ear)"/>
+            <path d="M114 192 C106 198 106 212 114 218" stroke="#8E5131" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+            <ellipse cx="290" cy="204" rx="16" ry="26" fill="url(#g-ear)"/>
+            <path d="M286 192 C294 198 294 212 286 218" stroke="#8E5131" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+          </g>
+
+          <!-- face -->
+          <path d="M200 90 C262 90 292 136 292 194 C292 252 258 302 200 306 C142 302 108 252 108 194 C108 136 138 90 200 90 Z" fill="url(#g-skin)"/>
+          <!-- jaw + side shading for volume -->
+          <path d="M112 214 C120 268 156 300 200 304 C244 300 280 268 288 214 C278 262 244 290 200 292 C156 290 122 262 112 214 Z" fill="#8F4F2E" opacity=".25"/>
+          <path d="M276 140 C296 180 294 240 268 278" stroke="#8F4F2E" stroke-width="16" opacity=".14" fill="none" filter="url(#f-blur4)"/>
+
+          <g id="l-face">
+            <!-- cheeks -->
+            <ellipse cx="148" cy="240" rx="20" ry="12" fill="#E5786A" opacity=".28" filter="url(#f-blur4)"/>
+            <ellipse cx="252" cy="240" rx="20" ry="12" fill="#E5786A" opacity=".28" filter="url(#f-blur4)"/>
+
+            <!-- eye sockets shading -->
+            <ellipse cx="167" cy="194" rx="28" ry="16" fill="#9C5A38" opacity=".18" filter="url(#f-blur4)"/>
+            <ellipse cx="233" cy="194" rx="28" ry="16" fill="#9C5A38" opacity=".18" filter="url(#f-blur4)"/>
+
+            <!-- eyes -->
+            <g id="eyes">
+              <path d="M146 200 C153 186 179 185 188 199 C180 211 154 212 146 200 Z" fill="url(#g-white)"/>
+              <g clip-path="url(#c-eye-l)">
+                <g id="iris-l">
+                  <circle cx="167" cy="199" r="10.5" fill="url(#g-iris)"/>
+                  <circle cx="167" cy="199" r="5" fill="#120A06"/>
+                  <circle cx="170.5" cy="195.5" r="2.6" fill="#FFFFFF"/>
+                  <circle cx="163.5" cy="202.5" r="1.1" fill="#FFFFFF" opacity=".7"/>
+                </g>
+                <path d="M140 186 H196 V196 C180 190 156 190 140 196 Z" fill="#9C5A38" opacity=".25"/>
+              </g>
+              <path d="M212 199 C221 185 247 186 254 200 C246 212 220 211 212 199 Z" fill="url(#g-white)"/>
+              <g clip-path="url(#c-eye-r)">
+                <g id="iris-r">
+                  <circle cx="233" cy="199" r="10.5" fill="url(#g-iris)"/>
+                  <circle cx="233" cy="199" r="5" fill="#120A06"/>
+                  <circle cx="236.5" cy="195.5" r="2.6" fill="#FFFFFF"/>
+                  <circle cx="229.5" cy="202.5" r="1.1" fill="#FFFFFF" opacity=".7"/>
+                </g>
+                <path d="M204 186 H260 V196 C244 190 220 190 204 196 Z" fill="#9C5A38" opacity=".25"/>
+              </g>
+              <!-- upper lids / lashes -->
+              <path d="M144 200 C152 184 180 183 190 198" stroke="#2A1810" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+              <path d="M210 198 C220 183 248 184 256 200" stroke="#2A1810" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+              <path d="M150 206 C160 212 176 212 184 205" stroke="#A86744" stroke-width="1.6" fill="none" opacity=".6"/>
+              <path d="M216 205 C224 212 240 212 250 206" stroke="#A86744" stroke-width="1.6" fill="none" opacity=".6"/>
+              <!-- blinking lids -->
+              <g id="lids" opacity="0">
+                <path d="M144 200 C152 184 180 183 190 198 C180 206 154 207 144 200 Z" fill="#C98458"/>
+                <path d="M210 198 C220 183 248 184 256 200 C246 207 220 206 210 198 Z" fill="#C98458"/>
+                <path d="M146 201 C156 207 178 207 188 199" stroke="#2A1810" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M212 199 C222 207 244 207 254 201" stroke="#2A1810" stroke-width="3" fill="none" stroke-linecap="round"/>
+              </g>
+            </g>
+
+            <!-- eyebrows -->
+            <g id="brows">
+              <path d="M144 176 C154 165 176 163 190 170" stroke="#1E1520" stroke-width="7.5" fill="none" stroke-linecap="round"/>
+              <path d="M210 170 C224 163 246 165 256 176" stroke="#1E1520" stroke-width="7.5" fill="none" stroke-linecap="round"/>
+            </g>
+
+            <!-- nose -->
+            <path d="M204 204 C206 222 210 236 212 242" stroke="#A3603C" stroke-width="5" fill="none" opacity=".35" filter="url(#f-blur4)"/>
+            <ellipse cx="200" cy="240" rx="13" ry="9" fill="#F3C9A8" opacity=".55" filter="url(#f-blur4)"/>
+            <path d="M188 246 C192 252 196 250 200 252 C204 250 208 252 212 246" stroke="#8A4A2C" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+            <!-- mouth -->
+            <path d="M176 270 C188 280 212 280 224 270 C214 276 186 276 176 270 Z" fill="#7C3526"/>
+            <path d="M176 270 C188 282 212 282 224 270" stroke="#6A2A1E" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+            <path d="M184 282 C194 290 206 290 216 282 C208 286 192 286 184 282 Z" fill="#C46A55" opacity=".7"/>
+            <path d="M170 266 C172 270 175 272 178 271" stroke="#8A4A2C" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>
+            <path d="M230 266 C228 270 225 272 222 271" stroke="#8A4A2C" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>
+          </g>
+
+          <!-- front hair: swept quiff -->
+          <g id="l-hair">
+            <path d="M116 172 C112 112 152 76 206 74 C258 72 294 104 290 160 C280 134 262 120 238 116 C226 134 196 142 166 140 C146 148 128 160 116 172 Z" fill="url(#g-hair)"/>
+            <path d="M152 112 C176 86 230 78 270 100" stroke="#5A4A6A" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
+            <path d="M170 128 C196 108 236 102 266 116" stroke="#4A3D57" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+            <path d="M140 140 C156 118 180 108 204 104" stroke="#4A3D57" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".5"/>
+            <path d="M120 170 C118 150 122 136 130 126" stroke="#0A070E" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+          </g>
+        </g>
+      </svg>
       <span class="badge-f b-api">API</span>
       <span class="badge-f b-sec" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 9.5 4-1.2 7-5 7-9.5V6z"/></svg></span>
       <span class="badge-f b-cloud" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .5-8 6 6 0 0 0-11.4-1.3A4.5 4.5 0 0 0 7 18z"/></svg></span>
@@ -495,6 +656,71 @@ footer em{font-style:normal; color:var(--accent)}
 
   document.getElementById("yr").textContent = new Date().getFullYear();
   renderFilters(); renderCareer(); renderProjects(); rotateRoles();
+})();
+</script>
+<script>
+// The hero character looks toward the cursor while it's on screen
+(function(){
+  var svg = document.getElementById("dev"); if(!svg) return;
+  var head = document.getElementById("head"), back = document.getElementById("l-back"),
+      face = document.getElementById("l-face"), hair = document.getElementById("l-hair"),
+      irisL = document.getElementById("iris-l"), irisR = document.getElementById("iris-r"),
+      brows = document.getElementById("brows"), lids = document.getElementById("lids");
+  var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var target = {x:0, y:0}, cur = {x:0, y:0}, lastMove = 0, visible = true;
+
+  function aim(clientX, clientY){
+    var r = svg.getBoundingClientRect();
+    // the face sits ~43% down the drawing
+    var cx = r.left + r.width / 2, cy = r.top + r.height * .43;
+    var dx = clientX - cx, dy = clientY - cy;
+    var reach = Math.max(window.innerWidth, window.innerHeight) * .5;
+    target.x = Math.max(-1, Math.min(1, dx / reach));
+    target.y = Math.max(-1, Math.min(1, dy / reach));
+    lastMove = performance.now();
+  }
+  window.addEventListener("pointermove", function(e){ aim(e.clientX, e.clientY); }, {passive:true});
+  window.addEventListener("touchmove", function(e){ var t = e.touches[0]; if(t) aim(t.clientX, t.clientY); }, {passive:true});
+  document.addEventListener("mouseleave", function(){ target.x = 0; target.y = 0; });
+
+  if(window.IntersectionObserver){
+    new IntersectionObserver(function(es){ visible = es[0].isIntersecting; }).observe(svg);
+  }
+
+  function blink(){
+    lids.setAttribute("opacity", "1");
+    setTimeout(function(){ lids.setAttribute("opacity", "0"); }, 130);
+    setTimeout(blink, 2600 + Math.random() * 3200);
+  }
+
+  function render(){
+    var x = cur.x, y = cur.y;
+    // layered offsets give a 3D turn: features move more than the skull
+    head.setAttribute("transform", "translate(" + (x * 8) + " " + (y * 6) + ") rotate(" + (x * 5) + " 200 300)");
+    back.setAttribute("transform", "translate(" + (-x * 5) + " " + (-y * 3) + ")");
+    face.setAttribute("transform", "translate(" + (x * 9) + " " + (y * 7) + ")");
+    hair.setAttribute("transform", "translate(" + (x * 6) + " " + (y * 3) + ")");
+    brows.setAttribute("transform", "translate(0 " + (y < 0 ? y * 4 : 0) + ")");
+    var ex = x * 7, ey = y * 4.5;
+    irisL.setAttribute("transform", "translate(" + ex + " " + ey + ")");
+    irisR.setAttribute("transform", "translate(" + ex + " " + ey + ")");
+  }
+
+  if(still){ render(); return; }
+  setTimeout(blink, 1800);
+
+  (function loop(now){
+    requestAnimationFrame(loop);
+    if(!visible) return;
+    // when the cursor rests, glance around gently
+    if(now - lastMove > 4000){
+      var t = now / 1000;
+      target.x = Math.sin(t * .6) * .35; target.y = Math.sin(t * .9) * .15;
+    }
+    cur.x += (target.x - cur.x) * .12; cur.y += (target.y - cur.y) * .12;
+    render();
+  })(0);
 })();
 </script>
 </body>
