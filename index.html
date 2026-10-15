@@ -28,7 +28,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth; scroll-padding-top:72px}
 html.lenis, html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto !important}
+html.fx, .lenis.lenis-smooth{scroll-behavior:auto !important}
 body{margin:0; background:var(--bg); color:var(--ink); font-family:"Geist",system-ui,sans-serif; font-size:17px; line-height:1.6; overflow-x:hidden}
 a{color:inherit}
 img{max-width:100%}
@@ -125,6 +125,7 @@ img{max-width:100%}
   .fx .orb{--w:min(420px,31vw); position:fixed; z-index:6; left:50%; top:50%; width:var(--w); max-width:none;
     margin-left:calc(var(--w) / -2); margin-top:calc(var(--w) * 1.15 / -2 + 30px)}
   .fx .about p.lead{max-width:24ch}
+  .fx .about{min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding-top:0}
 }
 
 /* ---------- shared ---------- */
@@ -672,6 +673,7 @@ footer em{font-style:normal; color:var(--accent)}
       row.appendChild(what); row.appendChild(when);
       root.appendChild(row);
     });
+    document.dispatchEvent(new CustomEvent("career:rendered"));
   }
 
   // ----- projects with generated covers -----
@@ -820,8 +822,9 @@ footer em{font-style:normal; color:var(--accent)}
   document.documentElement.classList.add("fx");
 
   // smooth scrolling
+  var lenis = null;
   if(window.Lenis){
-    var lenis = new Lenis({lerp:.1, smoothWheel:true});
+    lenis = new Lenis({lerp:.1, smoothWheel:true});
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
     gsap.ticker.lagSmoothing(0);
@@ -840,8 +843,8 @@ footer em{font-style:normal; color:var(--accent)}
     var orb = document.querySelector(".orb");
     gsap.timeline({scrollTrigger:{trigger:"#about", start:"top bottom", end:"top 25%", scrub:true}})
       .to(orb, {x:function(){ return window.innerWidth * .27; }, scale:.92, ease:"none"});
-    gsap.timeline({scrollTrigger:{trigger:"#about", start:"bottom 75%", end:"bottom top", scrub:true}})
-      .to(orb, {y:function(){ return -window.innerHeight * 1.1; }, autoAlpha:0, ease:"none"});
+    gsap.timeline({scrollTrigger:{trigger:"#about", start:"bottom 60%", end:"bottom 5%", scrub:true}})
+      .to(orb, {y:function(){ return -window.innerHeight * .9; }, autoAlpha:0, ease:"none"});
 
     // work: pin and slide the projects sideways
     var track = document.getElementById("projects");
@@ -851,30 +854,39 @@ footer em{font-style:normal; color:var(--accent)}
   });
 
   // about slides up and fades in
-  gsap.from(".about", {yPercent:30, autoAlpha:0, ease:"none", scrollTrigger:{trigger:".about", start:"top 95%", end:"top 45%", scrub:true}});
+  gsap.from(".about .label, .about .lead", {y:120, autoAlpha:0, ease:"none", stagger:.1, scrollTrigger:{trigger:".about", start:"top 90%", end:"top 20%", scrub:true}});
 
   // what I do: title, then cards one by one
-  gsap.from(".do .big-title", {y:60, autoAlpha:0, duration:1, ease:"power3.out", scrollTrigger:{trigger:".do", start:"top 75%"}});
-  gsap.from(".do-card", {y:60, autoAlpha:0, duration:.9, stagger:.15, ease:"power3.out", scrollTrigger:{trigger:".do-list", start:"top 75%"}});
+  var BACK = "play none none reverse"; // plays scrolling down, rewinds scrolling back up
+  gsap.from(".do .big-title", {y:60, autoAlpha:0, duration:1, ease:"power3.out", scrollTrigger:{trigger:".do", start:"top 75%", toggleActions:BACK}});
+  gsap.from(".do-card", {y:60, autoAlpha:0, duration:.9, stagger:.15, ease:"power3.out", scrollTrigger:{trigger:".do-list", start:"top 75%", toggleActions:BACK}});
 
   // career: the line draws as you scroll, entries fade in in turn
   gsap.fromTo("#career-line", {scaleY:0}, {scaleY:1, ease:"none", scrollTrigger:{trigger:".career-box", start:"top 70%", end:"bottom 60%", scrub:true}});
-  gsap.utils.toArray("#career .job").forEach(function(job){
-    gsap.from(job, {y:40, autoAlpha:0, duration:.8, ease:"power3.out", scrollTrigger:{trigger:job, start:"top 82%"}});
+  // timeline entries: rebuilt every time a filter re-renders the list
+  var jobAnims = [];
+  function animateJobs(){
+    jobAnims.forEach(function(a){ a.scrollTrigger && a.scrollTrigger.kill(); a.kill(); });
+    jobAnims = gsap.utils.toArray("#career .job").map(function(job){
+      return gsap.from(job, {y:40, autoAlpha:0, duration:.7, ease:"power3.out", scrollTrigger:{trigger:job, start:"top 85%", toggleActions:BACK}});
+    });
+  }
+  animateJobs();
+  document.addEventListener("career:rendered", function(){
+    animateJobs();
+    if(lenis) lenis.resize();
+    ScrollTrigger.refresh();
   });
 
   // tech stack tiles pop in
-  gsap.from(".tiles li", {scale:.7, autoAlpha:0, duration:.5, stagger:.05, ease:"back.out(1.6)", scrollTrigger:{trigger:".tiles", start:"top 80%"}});
+  gsap.from(".tiles li", {scale:.7, autoAlpha:0, duration:.5, stagger:.05, ease:"back.out(1.6)", scrollTrigger:{trigger:".tiles", start:"top 85%", toggleActions:BACK}});
 
   // contact
-  gsap.from(".hire .btn, .contact .me", {y:40, autoAlpha:0, duration:.9, stagger:.12, ease:"power3.out", scrollTrigger:{trigger:".contact", start:"top 75%"}});
+  gsap.from(".hire .btn, .contact .me", {y:40, autoAlpha:0, duration:.9, stagger:.12, ease:"power3.out", scrollTrigger:{trigger:".contact", start:"top 80%", toggleActions:BACK}});
 
-  // filtering the timeline re-renders it: show new entries without waiting for a scroll
-  document.getElementById("filters").addEventListener("click", function(){
-    requestAnimationFrame(function(){ ScrollTrigger.refresh(); });
-  });
 
   window.addEventListener("load", function(){ ScrollTrigger.refresh(); });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
 })();
 </script>
 </body>
