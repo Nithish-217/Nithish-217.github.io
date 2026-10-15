@@ -73,8 +73,25 @@ img{max-width:100%}
 .role{margin:4px 0 0; font-size:clamp(34px,4.2vw,64px); font-weight:800; line-height:1; text-transform:uppercase; letter-spacing:-.01em; min-height:2em}
 .role .r1{display:block; color:var(--ink)}
 .role .r2{display:block; color:var(--accent)}
-.orb{position:relative; justify-self:center; width:100%; max-width:460px; aspect-ratio:400/440}
-.orb img{position:relative; display:block; width:100%; height:100%}
+.orb{position:relative; justify-self:center; width:100%; max-width:400px; aspect-ratio:756/1020}
+.orb::before{content:""; position:absolute; inset:6% 2% 22%; border-radius:50%; background:radial-gradient(circle, rgba(139,92,246,.7), rgba(139,92,246,.15) 60%, transparent 72%); filter:blur(28px)}
+.orb img{position:relative; display:block; width:100%; height:100%; object-fit:contain;
+  -webkit-mask:linear-gradient(to bottom, #000 55%, transparent 92%), linear-gradient(to right, transparent 2%, #000 22%, #000 78%, transparent 98%);
+  -webkit-mask-composite:source-in;
+  mask:linear-gradient(to bottom, #000 55%, transparent 92%), linear-gradient(to right, transparent 2%, #000 22%, #000 78%, transparent 98%);
+  mask-composite:intersect}
+.badge-f{position:absolute; display:grid; place-items:center; min-width:58px; height:38px; padding:0 12px; border-radius:11px;
+  background:rgba(24,19,44,.85); border:2px solid var(--c); color:var(--c); font:700 15px/1 Consolas, monospace; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px)}
+.badge-f svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linejoin:round}
+.b-api{--c:#A78BFA; left:-4%; top:16%}
+.b-sec{--c:#22D3C5; right:-4%; top:12%}
+.b-cloud{--c:#60A5FA; left:2%; top:48%}
+.b-ai{--c:#FBBF24; right:2%; top:44%}
+@media (prefers-reduced-motion: no-preference){
+  .badge-f{animation:bob 4.4s ease-in-out infinite}
+  .b-sec{animation-delay:.8s} .b-cloud{animation-delay:1.5s} .b-ai{animation-delay:2.2s}
+  @keyframes bob{50%{transform:translateY(-8px)}}
+}
 .scroll-hint{position:absolute; left:50%; bottom:28px; transform:translateX(-50%); color:var(--dim); font-size:13px; letter-spacing:.3em; text-transform:uppercase; text-decoration:none}
 
 @media (prefers-reduced-motion: no-preference){
@@ -216,7 +233,7 @@ footer em{font-style:normal; color:var(--accent)}
 @media (max-width:1000px){
   .nav .mail{display:none}
   .hero{grid-template-columns:1fr; align-content:center; text-align:center; padding:92px 24px 72px; gap:8px}
-  .hero .orb{order:-1; max-width:300px}
+  .hero .orb{order:-1; max-width:260px}
   .role{min-height:2em}
   .do{grid-template-columns:1fr}
   .project{grid-template-columns:1fr; gap:28px}
@@ -268,7 +285,13 @@ footer em{font-style:normal; color:var(--accent)}
       <p class="hello">Hello! I'm</p>
       <h1 class="name">Nithish K</h1>
     </div>
-    <div class="orb"><img src="assets/avatar.svg" alt="Cartoon avatar of Nithish K at a laptop" width="400" height="440"></div>
+    <div class="orb">
+      <img src="assets/avatar.webp" alt="Illustrated portrait of Nithish K" width="756" height="1020">
+      <span class="badge-f b-api">API</span>
+      <span class="badge-f b-sec" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 9.5 4-1.2 7-5 7-9.5V6z"/></svg></span>
+      <span class="badge-f b-cloud" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .5-8 6 6 0 0 0-11.4-1.3A4.5 4.5 0 0 0 7 18z"/></svg></span>
+      <span class="badge-f b-ai">AI</span>
+    </div>
     <div class="right">
       <p class="an">A</p>
       <p class="role" aria-hidden="true"><span class="swap r1" id="r1">Backend</span><span class="swap r2" id="r2">Engineer</span></p>
