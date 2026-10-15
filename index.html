@@ -137,6 +137,9 @@ section{padding:140px 0 0}
 /* ---------- about ---------- */
 .about p.lead{margin:0; max-width:30ch; font-size:clamp(24px,3vw,40px); line-height:1.28; font-weight:600}
 
+.split-line{display:block; overflow:hidden; padding-bottom:.06em; margin-bottom:-.06em}
+.split-inner{display:inline-block; will-change:transform}
+
 /* ---------- what I do ---------- */
 .do{display:grid; grid-template-columns:minmax(220px,.8fr) 1.4fr; gap:48px; align-items:start}
 .do-list{display:flex; flex-direction:column}
@@ -854,7 +857,33 @@ footer em{font-style:normal; color:var(--accent)}
   });
 
   // about slides up and fades in
-  gsap.from(".about .label, .about .lead", {y:120, autoAlpha:0, ease:"none", stagger:.1, scrollTrigger:{trigger:".about", start:"top 90%", end:"top 20%", scrub:true}});
+  // about: the paragraph is split into its rendered lines, which rise into view one after another
+  var lead = document.querySelector(".about .lead"), aboutAnim = null, splitWidth = 0;
+  function esc(t){ return t.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+  function splitLines(el){
+    var text = el.dataset.text || el.textContent.replace(/\s+/g," ").trim();
+    el.dataset.text = text;
+    el.innerHTML = text.split(" ").map(function(w){ return '<span class="w">' + esc(w) + '</span>'; }).join(" ");
+    var lines = [], top = null;
+    el.querySelectorAll(".w").forEach(function(w){
+      if(w.offsetTop !== top){ top = w.offsetTop; lines.push([]); }
+      lines[lines.length - 1].push(esc(w.textContent));
+    });
+    el.innerHTML = lines.map(function(l){ return '<span class="split-line"><span class="split-inner">' + l.join(" ") + '</span> </span>'; }).join("");
+  }
+  function buildAbout(){
+    if(aboutAnim){ aboutAnim.scrollTrigger && aboutAnim.scrollTrigger.kill(); aboutAnim.kill(); }
+    splitLines(lead); splitWidth = lead.clientWidth;
+    aboutAnim = gsap.timeline({scrollTrigger:{trigger:".about", start:"top 85%", end:"center 55%", scrub:true}})
+      .from(".about .label", {y:40, autoAlpha:0, ease:"none", duration:.4})
+      .from(".about .split-inner", {yPercent:110, autoAlpha:0, ease:"none", stagger:.12, duration:.5}, "<.1");
+  }
+  buildAbout();
+  var resizeT;
+  window.addEventListener("resize", function(){
+    clearTimeout(resizeT);
+    resizeT = setTimeout(function(){ if(lead.clientWidth !== splitWidth){ buildAbout(); ScrollTrigger.refresh(); } }, 200);
+  });
 
   // what I do: title, then cards one by one
   var BACK = "play none none reverse"; // plays scrolling down, rewinds scrolling back up
@@ -886,7 +915,7 @@ footer em{font-style:normal; color:var(--accent)}
 
 
   window.addEventListener("load", function(){ ScrollTrigger.refresh(); });
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ buildAbout(); ScrollTrigger.refresh(); });
 })();
 </script>
 </body>
