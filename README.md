@@ -6,6 +6,8 @@ Static site, no build step. Open `index.html` in a browser to preview.
 Edit `data.js`, copy any `{ ... }` block, change the fields, save. Entries sort themselves by `date`.
 
 ## Publish an update
+If you changed `data.js`, bump the number in `data.js?v=…` near the bottom of `index.html` so visitors don't see a cached copy.
+
 ```
 git add -A
 git commit -m "Add <achievement>"
